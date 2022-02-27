@@ -24,15 +24,19 @@ import HomeScreen from "../screens/HomeScreen";
 import SearchScreen from "../screens/SearchScreen";
 import MinerScreen from "../screens/MinerScreen";
 import SettingScreen from "../screens/SettingScreen";
+import LoginScreen from "../screens/LoginScreen";
 
 import {
   RootStackParamList,
   RootTabParamList,
   RootTabScreenProps,
-} from "../types";
+} from "./types";
 import LinkingConfiguration from "./LinkingConfiguration";
 import { icons } from "../constants";
 import { Box, Center, Text, Image } from "native-base";
+import { useSelector } from "react-redux";
+import { selectLoggedIn } from "../redux/slices/usersSlice";
+import { selectIsLoading } from "../redux/slices/uiSlice";
 
 export default function Navigation() {
   return (
@@ -52,18 +56,30 @@ export default function Navigation() {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const RootNavigator = () => {
+  const loggedIn = useSelector(selectLoggedIn);
+
   return (
     <Stack.Navigator>
-      <Stack.Screen
-        name="Root"
-        component={BottomTabNavigator}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="NotFound"
-        component={NotFoundScreen}
-        options={{ title: "Oops!" }}
-      />
+      <Stack.Group>
+        {loggedIn ? (
+          <Stack.Screen
+            name="Root"
+            component={BottomTabNavigator}
+            options={{ headerShown: false }}
+          />
+        ) : (
+          <Stack.Screen
+            name="Login"
+            component={LoginScreen}
+            options={{ headerShown: false }}
+          />
+        )}
+        <Stack.Screen
+          name="NotFound"
+          component={NotFoundScreen}
+          options={{ title: "Oops!" }}
+        />
+      </Stack.Group>
     </Stack.Navigator>
   );
 };

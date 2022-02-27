@@ -1,15 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import * as TYPES from "../types";
 
 interface UserState {
   privateKey: string;
   publicKey: string;
+  loggedIn: boolean;
 }
 
 const initialState: UserState = {
   privateKey: "",
   publicKey: "",
+  loggedIn: false,
 };
 
 export const userSlice = createSlice({
@@ -22,15 +23,19 @@ export const userSlice = createSlice({
     setPublicKey: (state, action: PayloadAction<string>) => {
       state.publicKey = action.payload;
     },
+    setLoggedIn: (state, action: PayloadAction<boolean>) => {
+      state.loggedIn = action.payload;
+    },
   },
 });
 
 // Actions
-export const { setPrivateKey, setPublicKey } = userSlice.actions;
+export const { setPrivateKey, setPublicKey, setLoggedIn } = userSlice.actions;
 
 // Selectors
 export const selectPrivateKey = (state: RootState) => state.users.privateKey;
 export const selectPublicKey = (state: RootState) => state.users.publicKey;
+export const selectLoggedIn = (state: RootState) => state.users.loggedIn;
 
 // Reducer
 export default userSlice.reducer;

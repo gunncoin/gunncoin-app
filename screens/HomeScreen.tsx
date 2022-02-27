@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Center,
@@ -12,6 +12,8 @@ import {
 } from "native-base";
 import { icons } from "../constants";
 import { FontAwesome } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { RootStackParamList, RootTabScreenProps } from "../navigation/types";
 
 const HomePage = () => {
   return (
