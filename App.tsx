@@ -13,6 +13,11 @@ import {
   Code,
 } from "native-base";
 import NativeBaseIcon from "./components/NativeBaseIcon";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import Navigation from "./navigation";
+import { StatusBar } from "expo-status-bar";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 // Define the config
 const config = {
@@ -28,30 +33,14 @@ declare module "native-base" {
 }
 export default function App() {
   return (
-    <NativeBaseProvider>
-      <Center
-        _dark={{ bg: "blueGray.900" }}
-        _light={{ bg: "blueGray.50" }}
-        px={4}
-        flex={1}
-      >
-        <VStack space={5} alignItems="center">
-          <NativeBaseIcon />
-          <Heading size="lg">Welcome to NativeBase</Heading>
-          <HStack space={2} alignItems="center">
-            <Text>Edit</Text>
-            <Code>App.tsx</Code>
-            <Text>and save to reload.</Text>
-          </HStack>
-          <Link href="https://docs.nativebase.io" isExternal>
-            <Text color="primary.500" underline fontSize={"xl"}>
-              Learn NativeBase
-            </Text>
-          </Link>
-          <ToggleDarkMode />
-        </VStack>
-      </Center>
-    </NativeBaseProvider>
+    <Provider store={store}>
+      <SafeAreaProvider>
+        <NativeBaseProvider theme={theme}>
+          <Navigation />
+          <StatusBar />
+        </NativeBaseProvider>
+      </SafeAreaProvider>
+    </Provider>
   );
 }
 
