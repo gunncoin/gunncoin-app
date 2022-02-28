@@ -17,6 +17,7 @@ const linking: LinkingOptions<RootStackParamList> = {
         screens: {
           Home: {},
           Search: "search",
+          Contracts: "contracts",
           Miner: "miner",
           Settings: "settings",
         },

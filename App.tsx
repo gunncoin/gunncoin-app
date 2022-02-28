@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Text,
   Link,
@@ -18,20 +18,21 @@ import Navigation from "./navigation";
 import { StatusBar } from "expo-status-bar";
 import { Provider } from "react-redux";
 import store from "./redux/store";
+import { theme } from "./constants";
+import nacl from "tweetnacl";
 
-// Define the config
-const config = {
-  useSystemColorMode: false,
-  initialColorMode: "dark",
-};
-
-// extend the theme
-export const theme = extendTheme({ config });
-type MyThemeType = typeof theme;
-declare module "native-base" {
-  interface ICustomTheme extends MyThemeType {}
-}
 export default function App() {
+  useEffect(() => {
+    const seed = nacl.randomBytes(32); // Important
+    const keyPair = nacl.sign.keyPair.fromSeed(seed);
+    const seedHex = Buffer.from(seed).toString("hex");
+    const privateHex = Buffer.from(keyPair.secretKey).toString("hex");
+    const publicHex = Buffer.from(keyPair.publicKey).toString("hex"); // Important
+    console.log(seedHex);
+    console.log(privateHex);
+    console.log(publicHex);
+  }, []);
+
   return (
     <Provider store={store}>
       <SafeAreaProvider>

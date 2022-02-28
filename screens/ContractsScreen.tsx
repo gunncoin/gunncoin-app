@@ -15,7 +15,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useAppDispatch } from "../redux/hooks";
 import { setLoggedIn } from "../redux/slices/usersSlice";
 
-const LoginPage = () => {
+const ContractsScreen = () => {
   const dispatch = useAppDispatch();
 
   return (
@@ -40,4 +40,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default ContractsScreen;

@@ -10,7 +10,7 @@ interface UserState {
 const initialState: UserState = {
   privateKey: "",
   publicKey: "",
-  loggedIn: false,
+  loggedIn: true,
 };
 
 export const userSlice = createSlice({

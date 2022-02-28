@@ -9,6 +9,7 @@ import {
   NavigationContainer,
   DefaultTheme,
   DarkTheme,
+  Theme,
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
@@ -38,11 +39,28 @@ import { useSelector } from "react-redux";
 import { selectLoggedIn } from "../redux/slices/usersSlice";
 import { selectIsLoading } from "../redux/slices/uiSlice";
 
+const MyDarkTheme: Theme = {
+  ...DarkTheme,
+  colors: {
+    ...DarkTheme.colors,
+    primary: "rgb(255, 255, 255)",
+  },
+};
+
+const MyLightTheme: Theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: "rgb(252, 43, 43)",
+    background: "#dbdbdb",
+  },
+};
+
 export default function Navigation() {
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
-      theme={true ? DarkTheme : DefaultTheme}
+      theme={true ? MyDarkTheme : MyLightTheme}
     >
       <RootNavigator />
     </NavigationContainer>
@@ -121,6 +139,20 @@ const BottomTabNavigator = () => {
           title: "Search",
           tabBarIcon: ({ color }) => (
             <TabBarIcon iconName="search" color={color} label="Search" />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="Contracts"
+        component={SearchScreen}
+        options={{
+          title: "Contracts",
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon
+              iconName="newspaper-o"
+              color={color}
+              label="Contracts"
+            />
           ),
         }}
       />
