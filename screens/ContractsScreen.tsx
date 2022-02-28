@@ -20,22 +20,7 @@ const ContractsScreen = () => {
 
   return (
     <Center bg="coolGray.900" h="100%" w="100%">
-      <Center paddingX="5%" w="100%">
-        <Center bg="gray.800" rounded="lg" w="80%" paddingY="15px">
-          <Text fontSize="xl" bold>
-            Welcome to Gunncoin!
-          </Text>
-          <Box h="20px" />
-          <Button
-            rounded="sm"
-            bg="white"
-            w="90%"
-            onTouchEnd={() => dispatch(setLoggedIn(true))}
-          >
-            Create Wallet
-          </Button>
-        </Center>
-      </Center>
+      Contracts
     </Center>
   );
 };

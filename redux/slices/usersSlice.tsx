@@ -2,23 +2,23 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
 interface UserState {
-  privateKey: string;
+  privateSeed: string;
   publicKey: string;
   loggedIn: boolean;
 }
 
 const initialState: UserState = {
-  privateKey: "",
+  privateSeed: "",
   publicKey: "",
-  loggedIn: true,
+  loggedIn: false,
 };
 
 export const userSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
-    setPrivateKey: (state, action: PayloadAction<string>) => {
-      state.privateKey = action.payload;
+    setPrivateSeed: (state, action: PayloadAction<string>) => {
+      state.privateSeed = action.payload;
     },
     setPublicKey: (state, action: PayloadAction<string>) => {
       state.publicKey = action.payload;
@@ -30,10 +30,10 @@ export const userSlice = createSlice({
 });
 
 // Actions
-export const { setPrivateKey, setPublicKey, setLoggedIn } = userSlice.actions;
+export const { setPrivateSeed, setPublicKey, setLoggedIn } = userSlice.actions;
 
 // Selectors
-export const selectPrivateKey = (state: RootState) => state.users.privateKey;
+export const selectPrivateSeed = (state: RootState) => state.users.privateSeed;
 export const selectPublicKey = (state: RootState) => state.users.publicKey;
 export const selectLoggedIn = (state: RootState) => state.users.loggedIn;
 

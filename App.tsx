@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Platform } from "react-native";
 import {
   Text,
   Link,
@@ -12,27 +13,26 @@ import {
   VStack,
   Code,
 } from "native-base";
+import nacl from "tweetnacl";
+import * as SecureStore from "expo-secure-store";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import NativeBaseIcon from "./components/NativeBaseIcon";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import Navigation from "./navigation";
 import { StatusBar } from "expo-status-bar";
 import { Provider } from "react-redux";
+import Navigation from "./navigation";
 import store from "./redux/store";
-import { theme } from "./constants";
-import nacl from "tweetnacl";
+import { keys, theme } from "./constants";
+import { useAppDispatch } from "./redux/hooks";
+import {
+  setLoggedIn,
+  setPrivateSeed,
+  setPublicKey,
+} from "./redux/slices/usersSlice";
+import { setIsLoading } from "./redux/slices/uiSlice";
+import useStartupChecks from "./hooks/useStartupChecks";
 
 export default function App() {
-  useEffect(() => {
-    const seed = nacl.randomBytes(32); // Important
-    const keyPair = nacl.sign.keyPair.fromSeed(seed);
-    const seedHex = Buffer.from(seed).toString("hex");
-    const privateHex = Buffer.from(keyPair.secretKey).toString("hex");
-    const publicHex = Buffer.from(keyPair.publicKey).toString("hex"); // Important
-    console.log(seedHex);
-    console.log(privateHex);
-    console.log(publicHex);
-  }, []);
-
   return (
     <Provider store={store}>
       <SafeAreaProvider>

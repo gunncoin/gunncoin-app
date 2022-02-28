@@ -38,6 +38,7 @@ import { Box, Center, Text, Image } from "native-base";
 import { useSelector } from "react-redux";
 import { selectLoggedIn } from "../redux/slices/usersSlice";
 import { selectIsLoading } from "../redux/slices/uiSlice";
+import useStartupChecks from "../hooks/useStartupChecks";
 
 const MyDarkTheme: Theme = {
   ...DarkTheme,
@@ -57,6 +58,8 @@ const MyLightTheme: Theme = {
 };
 
 export default function Navigation() {
+  const startupChecks = useStartupChecks();
+
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
