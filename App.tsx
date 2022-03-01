@@ -17,7 +17,7 @@ import nacl from "tweetnacl";
 import * as SecureStore from "expo-secure-store";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import NativeBaseIcon from "./components/NativeBaseIcon";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { Provider } from "react-redux";
 import Navigation from "./navigation";

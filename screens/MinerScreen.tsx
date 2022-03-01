@@ -1,20 +1,42 @@
-import React, { useState } from "react";
-import { Box, Text, Button } from "native-base";
+import React, { useState, useEffect } from "react";
+import { Camera } from "expo-camera";
+import { Box, Button, Text } from "native-base";
+import { BarCodeScannedCallback, BarCodeScanner } from "expo-barcode-scanner";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const MinerScreen = () => {
-  const [hasCameraPermission, setHasCameraPermission] = useState(false);
+  const [hasPermission, setHasPermission] = useState(false);
+  const [type, setType] = useState(Camera.Constants.Type.back);
 
-  const handleOpenQRScanner = () => {};
+  useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync();
+      setHasPermission(status === "granted");
+    })();
+  }, []);
+
+  const handleBarCodeScanned: BarCodeScannedCallback = ({ type, data }) => {
+    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+  };
+
+  if (hasPermission === false) {
+    return <Text>No access to camera</Text>;
+  }
 
   return (
-    <Box>
-      <Box rounded={"lg"} bg="gray.800">
-        Miner
-        <Box>
-          <Button onPress={handleOpenQRScanner}>Open QR Code scanner</Button>
-        </Box>
+    <SafeAreaView>
+      <Box>
+        <Camera
+          onBarCodeScanned={handleBarCodeScanned}
+          barCodeScannerSettings={{
+            barCodeTypes: [BarCodeScanner.Constants.BarCodeType.qr],
+          }}
+        >
+          <Box h="500" />
+        </Camera>
+        <Button>Take picture?</Button>
       </Box>
-    </Box>
+    </SafeAreaView>
   );
 };
 

@@ -1,14 +1,17 @@
 import React from "react";
 import { Box, Text } from "native-base";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const SearchScreen = () => {
   return (
-    <Box>
-      Hello
+    <SafeAreaView>
       <Box>
-        <Text>Tello</Text>
+        Hello
+        <Box>
+          <Text>Tello</Text>
+        </Box>
       </Box>
-    </Box>
+    </SafeAreaView>
   );
 };
 
