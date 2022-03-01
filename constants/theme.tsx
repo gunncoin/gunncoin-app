@@ -32,8 +32,16 @@ const colors = {
   },
 };
 
+const components = {
+  Button: {
+    defaultProps: {
+      rounded: "lg",
+    },
+  },
+};
+
 // extend the theme
-const theme = extendTheme({ config, colors });
+const theme = extendTheme({ config, colors, components });
 type MyThemeType = typeof theme;
 declare module "native-base" {
   interface ICustomTheme extends MyThemeType {}

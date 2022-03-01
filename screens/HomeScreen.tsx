@@ -50,7 +50,6 @@ const HomePage = () => {
           bg="primary.800"
           w="100%"
           h="250"
-          rounded="lg"
           paddingX="3"
           paddingBottom="5"
           paddingTop="3"
@@ -62,6 +61,10 @@ const HomePage = () => {
               <Text>TODO</Text>
             </Center>
           </Box>
+          <HStack space={3} display="flex" marginTop="2">
+            <Button flex={1}>Buy</Button>
+            <Button flex={1}>Sell</Button>
+          </HStack>
         </Box>
         <Divider marginY={5} />
         <Box>
