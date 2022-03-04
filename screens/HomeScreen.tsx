@@ -58,7 +58,7 @@ const HomePage = () => {
             display="flex"
           >
             <Text fontSize="xl">GUNN Price</Text>
-            <Box bg="primary.500" w="100%" flex={1} rounded="lg">
+            <Box bg="primary.500" w="100%" flex={1} rounded="lg" marginTop={1}>
               <Center>
                 <Text>TODO</Text>
               </Center>

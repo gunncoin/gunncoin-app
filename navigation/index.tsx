@@ -23,6 +23,7 @@ import {
 import NotFoundScreen from "../screens/NotFoundScreen";
 import HomeScreen from "../screens/HomeScreen";
 import SearchScreen from "../screens/SearchScreen";
+import ContractsScreen from "../screens/ContractsScreen";
 import MinerScreen from "../screens/MinerScreen";
 import SettingScreen from "../screens/SettingScreen";
 import LoginScreen from "../screens/LoginScreen";
@@ -147,7 +148,7 @@ const BottomTabNavigator = () => {
       />
       <BottomTab.Screen
         name="Contracts"
-        component={SearchScreen}
+        component={ContractsScreen}
         options={{
           title: "Contracts",
           tabBarIcon: ({ color }) => (

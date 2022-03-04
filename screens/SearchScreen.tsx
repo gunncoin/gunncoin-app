@@ -5,12 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 const SearchScreen = () => {
   return (
     <SafeAreaView>
-      <Box>
-        Hello
-        <Box>
-          <Text>Tello</Text>
-        </Box>
-      </Box>
+      <Box>Search TODO</Box>
     </SafeAreaView>
   );
 };
