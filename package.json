@@ -8,7 +8,7 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "postinstall": "rn-nodeify --install fs,dgram,process,path,console --hack && patch-package"
+    "postinstall": "rn-nodeify --install fs,dgram,process,path,console,stream --hack && patch-package"
   },
   "dependencies": {
     "@expo/vector-icons": "^12.0.5",
