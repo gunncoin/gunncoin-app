@@ -1,6 +1,7 @@
 package com.gunncoinapp;
 import expo.modules.ReactActivityDelegateWrapper;
 import com.facebook.react.ReactActivityDelegate;
+import android.os.Bundle;
 
 import com.facebook.react.ReactActivity;
 
@@ -20,5 +21,10 @@ public class MainActivity extends ReactActivity {
     return new ReactActivityDelegateWrapper(this,
       new ReactActivityDelegate(this, getMainComponentName())
     );
+  }
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(null);
   }
 }

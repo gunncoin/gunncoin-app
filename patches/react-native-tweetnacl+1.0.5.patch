@@ -1,4 +1,13 @@
-diff --git a/node_modules/react-native-tweetnacl/tweetnacl.js b/node_modules/react-native-tweetnacl/tweetnacl.d.ts
-similarity index 100%
-rename from node_modules/react-native-tweetnacl/tweetnacl.js
-rename to node_modules/react-native-tweetnacl/tweetnacl.d.ts
+diff --git a/node_modules/react-native-tweetnacl/tweetnacl.d.ts b/node_modules/react-native-tweetnacl/tweetnacl.d.ts
+new file mode 100644
+index 0000000..e547b3e
+--- /dev/null
++++ b/node_modules/react-native-tweetnacl/tweetnacl.d.ts
+@@ -0,0 +1,7 @@
++import nacl from "./nacl"
++import { Base64 } from "js-base64";
++
++module.exports = {
++  nacl,
++  Base64
++};
