@@ -1,0 +1,4 @@
+diff --git a/node_modules/react-native-tweetnacl/tweetnacl.js b/node_modules/react-native-tweetnacl/tweetnacl.d.ts
+similarity index 100%
+rename from node_modules/react-native-tweetnacl/tweetnacl.js
+rename to node_modules/react-native-tweetnacl/tweetnacl.d.ts
