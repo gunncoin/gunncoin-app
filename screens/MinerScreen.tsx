@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Camera } from "expo-camera";
-import { StyleSheet } from "react-native";
+import { Alert, StyleSheet } from "react-native";
 import TcpSocket from "react-native-tcp-socket";
 import {
   Box,
@@ -18,14 +18,13 @@ import QRScanner from "../components/Miner/QRScanner";
 import { useFocusEffect } from "@react-navigation/native";
 import { useAppSelector } from "../redux/hooks";
 import { selectPublicKey } from "../redux/slices/usersSlice";
+import Socket from "react-native-tcp-socket/lib/types/Socket";
 
 const MinerScreen = () => {
   const userPublicAddress = useAppSelector(selectPublicKey);
 
   const [cameraActive, setCameraActive] = useState(false);
-  const [connected, setConnected] = useState(false);
-  const [minerIp, setMinerIp] = useState("");
-  const [minerPort, setMinerPort] = useState(48661);
+  const [client, setClient] = useState<Socket | null>(null);
 
   // Config
   const [upnp, setUPNP] = useState(true);
@@ -37,12 +36,50 @@ const MinerScreen = () => {
     }, [])
   );
 
-  const handleBarCodeScanned: BarCodeScannedCallback = ({ type, data }) => {};
+  const handleBarCodeScanned: BarCodeScannedCallback = ({ type, data }) => {
+    setCameraActive(false);
+    // { ip: "127.0.0.1", port: 48661 }
+    const parsedData = JSON.parse(data);
+    const ip: string = parsedData["ip"];
+    const port: number = parsedData["port"];
+    if (!ip || !port) throw new Error("Cannot parse qr code");
 
-  const handleSaveConfig = () => {
-    TcpSocket.createConnection({ port: minerPort, host: minerIp }, () => {
-      console.log("Connected");
+    const tcpClient = TcpSocket.createConnection(
+      { port: port, host: ip },
+      () => {}
+    );
+
+    tcpClient.on("data", (data) => {
+      Alert.alert(data.toString());
     });
+
+    tcpClient.on("error", (error) => {
+      Alert.alert(error.message);
+    });
+
+    setClient(tcpClient);
+  };
+
+  const handleClientDisconnect = () => {
+    if (!client)
+      throw new Error("Client was never connected in the first place");
+
+    client.destroy();
+    setClient(null);
+  };
+
+  const sendTheFreakingData = () => {
+    const message = `${JSON.stringify({
+      message: {
+        name: "config",
+        payload: {
+          public_address: publicAddress,
+          upnp: upnp,
+          start_mining: true,
+        },
+      },
+    })}\n`;
+    client?.write(message);
   };
 
   return (
@@ -54,39 +91,51 @@ const MinerScreen = () => {
           handleBarCodeScanned={handleBarCodeScanned}
           enabled={cameraActive}
         />
+        <Button variant="ghost" onPress={() => setCameraActive(false)}>
+          Close
+        </Button>
       </Box>
-      <Box>
-        <Center>
-          <Text fontSize="2xl">Miner Configuration</Text>
-          <Text fontSize="xl">Not Connected</Text>
-          <Button onPress={() => setCameraActive(true)}>
-            Scan Miner QR Code
-          </Button>
-          <Text>(Must be connected to same network)</Text>
-        </Center>
-        <Center bg="gray.700">
-          <VStack w="95%" space={2}>
-            <Text fontSize="2xl">Configer</Text>
-            <Checkbox
-              value="upnp"
-              defaultIsChecked
-              onChange={(val) => setUPNP(val)}
-            >
-              Enable UPNP
-            </Checkbox>
-            <Input
-              placeholder="Public Address"
-              value={publicAddress}
-              onChangeText={(addr) => setPublicAddress(addr)}
-            />
-            <Text fontSize="lg">Etc</Text>
-            <HStack space={2} w="100%">
-              <Button flex={1}>Save Config</Button>
-              <Button flex={1}>Start Mining</Button>
-            </HStack>
-          </VStack>
-        </Center>
-      </Box>
+      {!cameraActive && (
+        <Box>
+          <Center>
+            <Text fontSize="2xl">Miner Configuration</Text>
+            <Text fontSize="xl" color={client ? "success.500" : "error.500"}>
+              {client == null && "Not "}Connected
+            </Text>
+            {client ? (
+              <Button onPress={handleClientDisconnect}>Disconnect</Button>
+            ) : (
+              <Button onPress={() => setCameraActive(true)}>
+                Scan Miner QR Code
+              </Button>
+            )}
+            <Text>(Must be connected to same network)</Text>
+          </Center>
+          <Center bg="gray.700">
+            <VStack w="95%" space={2}>
+              <Text fontSize="2xl">Configer</Text>
+              <Checkbox
+                value="upnp"
+                defaultIsChecked
+                onChange={(val) => setUPNP(val)}
+              >
+                Enable UPNP
+              </Checkbox>
+              <Input
+                placeholder="Public Address"
+                value={publicAddress}
+                onChangeText={(addr) => setPublicAddress(addr)}
+              />
+              <Text fontSize="lg">Etc</Text>
+              <HStack space={2} w="100%">
+                <Button flex={1} onPress={sendTheFreakingData}>
+                  Start Mining
+                </Button>
+              </HStack>
+            </VStack>
+          </Center>
+        </Box>
+      )}
     </SafeAreaView>
   );
 };

@@ -37,11 +37,9 @@ const Settings = () => {
 
   return (
     <SafeAreaView>
-      <Box w="100%" h="100%" paddingX="5%">
+      <Box w="100%" paddingX="5%">
         <Box w="100%" display="flex">
-          <Button flex={1} onPress={handleDeleteData}>
-            Delete Wallet
-          </Button>
+          <Button onPress={handleDeleteData}>Delete Wallet</Button>
         </Box>
       </Box>
     </SafeAreaView>
