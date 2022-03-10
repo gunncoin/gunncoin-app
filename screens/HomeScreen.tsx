@@ -18,18 +18,30 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList, RootTabScreenProps } from "../navigation/types";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { fetchBalance, selectBalance } from "../redux/slices/usersSlice";
+import { convertToUSD } from "../api";
 
 const HomePage = () => {
+  const dispatch = useAppDispatch();
+  const balance = useAppSelector(selectBalance);
+
+  const tryFetchBalance = () => {
+    console.log("fetching");
+    dispatch(fetchBalance());
+  };
+
   return (
     <SafeAreaView>
       <Center>
         <Box paddingX="5" w="100%">
           <Box rounded="lg" w="100%" marginTop="10%">
-            <Text fontSize="4xl">$3,293.46</Text>
+            <Text fontSize="4xl">{`$${convertToUSD(balance)}`}</Text>
             <Text fontSize="md" color="gray.400" marginTop={"-1"}>
-              500 GUNN
+              {`${balance} GUNN`}
             </Text>
             <HStack space={3} display="flex" marginTop={4}>
+              <Button onPress={tryFetchBalance}>Request</Button>
               <Button
                 leftIcon={<Icon as={FontAwesome} name="arrow-up" size={"5"} />}
                 flex={1}
