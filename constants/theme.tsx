@@ -36,6 +36,7 @@ const components = {
   Button: {
     defaultProps: {
       rounded: "lg",
+      size: "lg",
     },
   },
 };

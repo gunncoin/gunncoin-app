@@ -27,6 +27,7 @@ import ContractsScreen from "../screens/ContractsScreen";
 import MinerScreen from "../screens/MinerScreen";
 import SettingScreen from "../screens/SettingScreen";
 import LoginScreen from "../screens/LoginScreen";
+import SendScreen from "../screens/SendScreen";
 
 import {
   RootStackParamList,
@@ -101,6 +102,9 @@ const RootNavigator = () => {
           component={NotFoundScreen}
           options={{ title: "Oops!" }}
         />
+      </Stack.Group>
+      <Stack.Group screenOptions={{ presentation: "modal" }}>
+        <Stack.Screen name="Send" component={SendScreen} />
       </Stack.Group>
     </Stack.Navigator>
   );

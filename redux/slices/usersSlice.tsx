@@ -54,7 +54,11 @@ export const fetchBalance = createAsyncThunk(
     const {
       users: { publicKey },
     } = getState() as { users: UserState };
-    return await sendMessage(balanceMessage(publicKey));
+    return await sendMessage(
+      balanceMessage(
+        "034e06f1d959fe83fd3f65627b7e2e2d3c020f99cd99bcd3a4dd649e65e3a684"
+      )
+    );
   }
 );
 
