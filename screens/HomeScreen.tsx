@@ -81,20 +81,18 @@ const HomePage = () => {
               display="flex"
             >
               <Text fontSize="xl">GUNN Price</Text>
-              <Box
-                bg="primary.500"
-                w="100%"
-                flex={1}
-                rounded="lg"
-                marginTop={1}
-              >
+              <Box bg="gray.800" w="100%" flex={1} rounded="lg" marginTop={2}>
                 <Center>
                   <Text>TODO</Text>
                 </Center>
               </Box>
-              <HStack space={3} display="flex" marginTop="2">
-                <Button flex={1}>Buy</Button>
-                <Button flex={1}>Sell</Button>
+              <HStack space={3} display="flex" marginTop={3}>
+                <Button flex={1} colorScheme="secondary">
+                  Buy
+                </Button>
+                <Button flex={1} colorScheme="secondary">
+                  Sell
+                </Button>
               </HStack>
             </Box>
             <Divider marginY={5} />
@@ -104,30 +102,10 @@ const HomePage = () => {
                 <Icon as={FontAwesome} name="search" size={5} />
               </HStack>
               <VStack space={3}>
-                <Box
-                  bg="primary.800"
-                  width="100%"
-                  height="50"
-                  rounded="lg"
-                ></Box>
-                <Box
-                  bg="primary.800"
-                  width="100%"
-                  height="50"
-                  rounded="lg"
-                ></Box>
-                <Box
-                  bg="primary.800"
-                  width="100%"
-                  height="50"
-                  rounded="lg"
-                ></Box>
-                <Box
-                  bg="primary.800"
-                  width="100%"
-                  height="50"
-                  rounded="lg"
-                ></Box>
+                <Box bg="gray.800" width="100%" height="50" rounded="lg"></Box>
+                <Box bg="gray.800" width="100%" height="50" rounded="lg"></Box>
+                <Box bg="gray.800" width="100%" height="50" rounded="lg"></Box>
+                <Box bg="gray.800" width="100%" height="50" rounded="lg"></Box>
               </VStack>
             </Box>
           </Box>

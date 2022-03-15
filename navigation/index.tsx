@@ -47,6 +47,7 @@ const MyDarkTheme: Theme = {
   colors: {
     ...DarkTheme.colors,
     primary: "rgb(255, 255, 255)",
+    background: "#000",
   },
 };
 
