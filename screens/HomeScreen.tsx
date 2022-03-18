@@ -56,7 +56,7 @@ const HomePage = () => {
                   }
                   flex={1}
                   colorScheme="primary"
-                  onPress={() => navigation.navigate("Send")}
+                  onPress={() => navigation.navigate("SendInitial")}
                 >
                   Send
                 </Button>
@@ -82,9 +82,7 @@ const HomePage = () => {
             >
               <Text fontSize="xl">GUNN Price</Text>
               <Box bg="gray.800" w="100%" flex={1} rounded="lg" marginTop={2}>
-                <Center>
-                  <Text>TODO</Text>
-                </Center>
+                <Center></Center>
               </Box>
               <HStack space={3} display="flex" marginTop={3}>
                 <Button flex={1} colorScheme="secondary">

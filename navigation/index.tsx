@@ -27,7 +27,9 @@ import ContractsScreen from "../screens/ContractsScreen";
 import MinerScreen from "../screens/MinerScreen";
 import SettingScreen from "../screens/SettingScreen";
 import LoginScreen from "../screens/LoginScreen";
-import SendScreen from "../screens/SendScreen";
+import SendInitial from "../screens/SendInitialScreen";
+import SendFinal from "../screens/SendFinalScreen";
+import RecieveScreen from "../screens/RecieveScreen";
 
 import {
   RootStackParamList,
@@ -105,7 +107,11 @@ const RootNavigator = () => {
         />
       </Stack.Group>
       <Stack.Group screenOptions={{ presentation: "modal" }}>
-        <Stack.Screen name="Send" component={SendScreen} />
+        <Stack.Group>
+          <Stack.Screen name="SendInitial" component={SendInitial} />
+          <Stack.Screen name="SendFinal" component={SendFinal} />
+        </Stack.Group>
+        <Stack.Screen name="Recieve" component={RecieveScreen} />
       </Stack.Group>
     </Stack.Navigator>
   );

@@ -20,7 +20,8 @@ export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
   NotFound: undefined;
   Login: undefined;
-  Send: undefined;
+  SendInitial: undefined;
+  SendFinal: { amount: number };
   Recieve: undefined;
 };
 
