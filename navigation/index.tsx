@@ -108,8 +108,16 @@ const RootNavigator = () => {
       </Stack.Group>
       <Stack.Group screenOptions={{ presentation: "modal" }}>
         <Stack.Group>
-          <Stack.Screen name="SendInitial" component={SendInitial} />
-          <Stack.Screen name="SendFinal" component={SendFinal} />
+          <Stack.Screen
+            name="SendInitial"
+            component={SendInitial}
+            options={{ title: "Send" }}
+          />
+          <Stack.Screen
+            name="SendFinal"
+            component={SendFinal}
+            options={{ title: "Send" }}
+          />
         </Stack.Group>
         <Stack.Screen name="Recieve" component={RecieveScreen} />
       </Stack.Group>

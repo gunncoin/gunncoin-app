@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   Box,
   Button,
@@ -47,11 +47,13 @@ const SendScreen = ({ navigation }: SendInitialScreenProps) => {
     );
   };
 
+  useEffect(() => {
+    // Manage enable decimal
+    setDecimalEnabled(!amountStr.includes("."));
+  }, [amountStr]);
+
   const handleNumPressed = (val: number | string) => {
-    if (val == ".") {
-      if (amountStr.includes(".")) return;
-      else setDecimalEnabled(false);
-    }
+    if (val == "." && amountStr.includes(".")) return;
 
     console.log("TODO: Haptics");
     let newStr = `${amountStr}${val}`;
@@ -64,8 +66,6 @@ const SendScreen = ({ navigation }: SendInitialScreenProps) => {
   const deleteLastNum = () => {
     if (amountStr.length <= 1) setAmountStr("0");
     else setAmountStr(amountStr.substring(0, amountStr.length - 1));
-
-    if (!amountStr.includes(".")) setDecimalEnabled(true);
   };
 
   const handleNextPress = () => {
@@ -123,7 +123,11 @@ const SendScreen = ({ navigation }: SendInitialScreenProps) => {
         </HStack>
       </Flex>
       <Flex flexDirection="row">
-        <Button flex={1} onPress={handleNextPress}>
+        <Button
+          flex={1}
+          onPress={handleNextPress}
+          isDisabled={parseFloat(amountStr) == 0}
+        >
           Next
         </Button>
       </Flex>
