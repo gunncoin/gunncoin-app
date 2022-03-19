@@ -1,13 +1,8 @@
 diff --git a/node_modules/react-native-tweetnacl/tweetnacl.d.ts b/node_modules/react-native-tweetnacl/tweetnacl.d.ts
 new file mode 100644
-index 0000000..e547b3e
+index 0000000..54a6d71
 --- /dev/null
 +++ b/node_modules/react-native-tweetnacl/tweetnacl.d.ts
-@@ -0,0 +1,7 @@
-+import nacl from "./nacl"
-+import { Base64 } from "js-base64";
-+
-+module.exports = {
-+  nacl,
-+  Base64
-+};
+@@ -0,0 +1 @@
++declare module 'react-native-tweetnacl';
+\ No newline at end of file

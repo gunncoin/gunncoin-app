@@ -1,3 +1,5 @@
+import { nacl } from "react-native-tweetnacl";
+
 interface Message {
   message: {
     name: string;
@@ -24,6 +26,24 @@ export const transactionMessage = (tx: object) =>
       payload: tx,
     },
   });
+
+export const createTransaction = (
+  privateKey: string,
+  publicKey: string,
+  receiver: string,
+  amount: number
+) => {
+  // Based on the python implementation here https://github.com/gunncoin/gunncoin/blob/main/gunncoin/transactions.py
+  const tx = {
+    sender: publicKey,
+    receiver: receiver,
+    amount: amount,
+    timestamp: Date.now(),
+  };
+
+  const txBytes = JSON.stringify(tx);
+  console.log(txBytes);
+};
 
 /*
 
