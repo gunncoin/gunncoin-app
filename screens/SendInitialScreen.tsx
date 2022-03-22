@@ -21,7 +21,7 @@ type SendInitialScreenProps = NativeStackScreenProps<
   "SendInitial"
 >;
 
-const SendScreen = ({ navigation }: SendInitialScreenProps) => {
+const SendInitialScreen = ({ navigation }: SendInitialScreenProps) => {
   const [amountStr, setAmountStr] = useState("0");
   const [decimalEnabled, setDecimalEnabled] = useState(true);
   const scrollRef = useRef<any>(null);
@@ -91,21 +91,33 @@ const SendScreen = ({ navigation }: SendInitialScreenProps) => {
         <HStack w="100%" flex={1}>
           {[1, 2, 3].map((val) => {
             return (
-              <NumPadButton val={val} onPress={() => handleNumPressed(val)} />
+              <NumPadButton
+                val={val}
+                onPress={() => handleNumPressed(val)}
+                key={val}
+              />
             );
           })}
         </HStack>
         <HStack w="100%" flex={1}>
           {[4, 5, 6].map((val) => {
             return (
-              <NumPadButton val={val} onPress={() => handleNumPressed(val)} />
+              <NumPadButton
+                val={val}
+                onPress={() => handleNumPressed(val)}
+                key={val}
+              />
             );
           })}
         </HStack>
         <HStack w="100%" flex={1}>
           {[7, 8, 9].map((val) => {
             return (
-              <NumPadButton val={val} onPress={() => handleNumPressed(val)} />
+              <NumPadButton
+                val={val}
+                onPress={() => handleNumPressed(val)}
+                key={val}
+              />
             );
           })}
         </HStack>
@@ -135,4 +147,4 @@ const SendScreen = ({ navigation }: SendInitialScreenProps) => {
   );
 };
 
-export default SendScreen;
+export default SendInitialScreen;

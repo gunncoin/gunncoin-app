@@ -21,10 +21,12 @@ export const sendMessage = async (message: string) => {
 
     socket.on("data", (data) => {
       const parsedData = JSON.parse(data.toString());
+      socket.destroy();
       resolve(parsedData);
     });
 
     socket.on("error", (error) => {
+      socket.destroy();
       reject();
     });
   });

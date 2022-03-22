@@ -1,11 +1,13 @@
 import React from "react";
-import { Box, Button, Center } from "native-base";
+import { Box, Button, Center, VStack } from "native-base";
 import { Platform } from "react-native";
 import * as SecureStore from "expo-secure-store";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { keys, theme } from "../constants";
-import { useAppDispatch } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import {
+  selectPrivateSeed,
+  selectPublicKey,
   setLoggedIn,
   setPrivateSeed,
   setPublicKey,
@@ -15,6 +17,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 const Settings = () => {
   const dispatch = useAppDispatch();
+  const privateSeed = useAppSelector(selectPrivateSeed);
+  const publicKey = useAppSelector(selectPublicKey);
 
   const handleDeleteData = async () => {
     // Check for private/public keys
@@ -35,12 +39,20 @@ const Settings = () => {
     }
   };
 
+  const printKeysToConsole = () => {
+    console.log("Private Seed");
+    console.log(privateSeed);
+    console.log("Public Key");
+    console.log(publicKey);
+  };
+
   return (
     <SafeAreaView>
       <Box w="100%" paddingX="5%">
-        <Box w="100%" display="flex">
+        <VStack w="100%" space={5}>
           <Button onPress={handleDeleteData}>Delete Wallet</Button>
-        </Box>
+          <Button onPress={printKeysToConsole}>Print Keys to Console</Button>
+        </VStack>
       </Box>
     </SafeAreaView>
   );

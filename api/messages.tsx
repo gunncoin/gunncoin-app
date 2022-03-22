@@ -28,53 +28,39 @@ export const transactionMessage = (tx: object) =>
   });
 
 export const createTransaction = (
-  privateKey: string,
+  privateSeed: string,
   publicKey: string,
   receiver: string,
   amount: number
 ) => {
   // Based on the python implementation here https://github.com/gunncoin/gunncoin/blob/main/gunncoin/transactions.py
-  const tx = {
-    sender: publicKey,
-    receiver: receiver,
+  const txUnsigned = {
     amount: amount,
-    timestamp: Date.now(),
+    receiver: receiver,
+    sender: publicKey,
+    timestamp: 1647737385,
   };
 
-  const txBytes = JSON.stringify(tx);
-  console.log(txBytes);
+  // Reduce json to bytes
+  const jsonToArray = (json: object) => {
+    const str = JSON.stringify(json, Object.keys(json).sort(), 0);
+    console.log(str);
+    const ret = new Uint8Array(str.length);
+    for (let i = 0; i < str.length; i++) ret[i] = str.charCodeAt(i);
+    return ret;
+  };
+
+  const txBytes = jsonToArray(txUnsigned);
+
+  // Get secret key from seed
+  const seed = Uint8Array.from(Buffer.from(privateSeed, "hex"));
+  const { secretKey } = nacl.sign.keyPair.fromSeed(seed);
+
+  // Attach signature
+  const signature = nacl.sign.detached(txBytes, secretKey);
+
+  const sigHex = Buffer.from(signature).toString("hex");
+  const tx = { ...txUnsigned, signature: sigHex };
+
+  return tx;
 };
-
-/*
-
-def create_transaction(
-    private_key: str, public_key: str, receiver: str, amount: int
-) -> dict:
-    """
-    Creates a transaction from a sender's public key to a receiver's public key
-
-    :param private_key: The Sender's private key
-    :param public_key: The Sender's public key
-    :param receiver: The Receiver's public key
-    :param amount: The amount in cents
-    :return: <dict> The transaction dict
-    """
-
-    tx = {
-        "sender": public_key,
-        "receiver": receiver,
-        "amount": amount,
-        "timestamp": int(time()),
-    }
-    tx_bytes = json.dumps(tx, sort_keys=True).encode("ascii")
-
-    # Generate a signing key from the private key
-    signing_key = SigningKey(private_key, encoder=HexEncoder)
-
-    # Now add the signature to the original transaction
-    signature = signing_key.sign(tx_bytes).signature
-    tx["signature"] = HexEncoder.encode(signature).decode("ascii")
-
-    return tx
-
-*/
