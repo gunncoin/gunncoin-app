@@ -82,13 +82,15 @@ const HomePage = () => {
             >
               <Text fontSize="xl">GUNN Price</Text>
               <Box bg="gray.800" w="100%" flex={1} rounded="lg" marginTop={2}>
-                <Center></Center>
+                <Center h="100%">
+                  <Text>Not ready yet, come back later...</Text>
+                </Center>
               </Box>
               <HStack space={3} display="flex" marginTop={3}>
-                <Button flex={1} colorScheme="secondary">
+                <Button flex={1} colorScheme="secondary" isDisabled>
                   Buy
                 </Button>
-                <Button flex={1} colorScheme="secondary">
+                <Button flex={1} colorScheme="secondary" isDisabled>
                   Sell
                 </Button>
               </HStack>

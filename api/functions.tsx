@@ -35,6 +35,6 @@ export const sendMessage = async (message: string) => {
 };
 
 export const convertToUSD = (GUNN: number) => {
-  // Placeholder price
-  return 4.35 * GUNN;
+  // Placeholder price (my GPA/10)
+  return 0.435 * GUNN;
 };
