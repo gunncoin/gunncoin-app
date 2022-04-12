@@ -11168,6 +11168,11 @@ react-is@^16.12.0, react-is@^16.13.0, react-is@^16.13.1, react-is@^16.7.0, react
   resolved "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
+react-native-ble-manager@^8.0.2:
+  version "8.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-ble-manager/-/react-native-ble-manager-8.0.2.tgz#1fb7f00fabb412e563b903ee2c12df1736d52c3b"
+  integrity sha512-SCtuLFkBwKyPY0er3uKPcZaWUdSjJ3koDUlBvO/nS/WPbBBa2CJn+at/IXPolnxlV++jZqrOGV2qmENrq7ppZA==
+
 react-native-codegen@^0.0.8:
   version "0.0.8"
   resolved "https://registry.npmjs.org/react-native-codegen/-/react-native-codegen-0.0.8.tgz"

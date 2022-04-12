@@ -19,6 +19,16 @@ export const balanceMessage = (public_address: string) =>
     },
   });
 
+export const txHistoryMessage = (public_address: string) =>
+  message({
+    message: {
+      name: "tx_history",
+      payload: {
+        public_address: public_address,
+      },
+    },
+  });
+
 export const transactionMessage = (tx: object) =>
   message({
     message: {
@@ -44,7 +54,6 @@ export const createTransaction = (
   // Reduce json to bytes
   const jsonToArray = (json: object) => {
     const str = JSON.stringify(json, Object.keys(json).sort(), 0);
-    console.log(str);
     const ret = new Uint8Array(str.length);
     for (let i = 0; i < str.length; i++) ret[i] = str.charCodeAt(i);
     return ret;

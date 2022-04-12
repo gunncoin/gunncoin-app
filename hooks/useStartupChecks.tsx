@@ -6,6 +6,7 @@ import { keys, theme } from "../constants";
 import { useAppDispatch } from "../redux/hooks";
 import {
   fetchBalance,
+  fetchTransactions,
   setLoggedIn,
   setPrivateSeed,
   setPublicKey,
@@ -37,6 +38,7 @@ export const useStartupChecks = async () => {
   }
 
   dispatch(fetchBalance());
+  dispatch(fetchTransactions());
   dispatch(setIsLoading(false));
 };
 

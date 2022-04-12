@@ -20,17 +20,29 @@ import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList, RootTabScreenProps } from "../navigation/types";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { fetchBalance, selectBalance } from "../redux/slices/usersSlice";
+import {
+  fetchBalance,
+  fetchTransactions,
+  selectBalance,
+  selectBalanceLoading,
+  selectTransactions,
+  selectTransactionsLoading,
+} from "../redux/slices/usersSlice";
 import { convertToUSD } from "../api";
 import { RefreshControl } from "react-native";
+import TransactionButton from "../components/Home/TransactionButton";
 
 const HomePage = () => {
-  const navigation = useNavigation();
   const dispatch = useAppDispatch();
+  const navigation = useNavigation();
   const balance = useAppSelector(selectBalance);
+  const transactions = useAppSelector(selectTransactions);
+  const balanceLoading = useAppSelector(selectBalanceLoading);
+  const transactionsLoading = useAppSelector(selectTransactionsLoading);
 
   const onRefresh = () => {
     dispatch(fetchBalance());
+    dispatch(fetchTransactions());
   };
 
   return (
@@ -39,6 +51,7 @@ const HomePage = () => {
         refreshControl={
           <RefreshControl refreshing={false} onRefresh={onRefresh} />
         }
+        h="100%"
       >
         <Center>
           <Box paddingX="5" w="100%">
@@ -47,7 +60,7 @@ const HomePage = () => {
                 2
               )}`}</Text>
               <Text fontSize="md" color="gray.400" marginTop={"-1"}>
-                {`${balance} GUNN`}
+                {balanceLoading ? "LOADING" : `${balance} GUNN`}
               </Text>
               <HStack space={3} display="flex" marginTop={4}>
                 <Button
@@ -101,11 +114,19 @@ const HomePage = () => {
                 <Text fontSize={"2xl"}>Transactions</Text>
                 <Icon as={FontAwesome} name="search" size={5} />
               </HStack>
-              <VStack space={3}>
-                <Box bg="gray.800" width="100%" height="50" rounded="lg"></Box>
-                <Box bg="gray.800" width="100%" height="50" rounded="lg"></Box>
-                <Box bg="gray.800" width="100%" height="50" rounded="lg"></Box>
-                <Box bg="gray.800" width="100%" height="50" rounded="lg"></Box>
+              <VStack space={3} marginTop={1}>
+                {!transactionsLoading &&
+                  transactions.map((tx) => (
+                    <TransactionButton
+                      amount={tx.amount}
+                      sender={tx.sender}
+                      reciever={tx.receiver}
+                    />
+                  ))}
+                {transactionsLoading &&
+                  [1, 2, 3, 4].map(() => (
+                    <Box bg="gray.800" rounded="lg" w="100%" h="75px"></Box>
+                  ))}
               </VStack>
             </Box>
           </Box>

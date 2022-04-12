@@ -21,6 +21,7 @@ export const sendMessage = async (message: string) => {
 
     socket.on("data", (data) => {
       const parsedData = JSON.parse(data.toString());
+      console.log(parsedData);
       socket.destroy();
       resolve(parsedData);
     });
